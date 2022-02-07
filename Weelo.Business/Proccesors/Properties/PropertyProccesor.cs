@@ -7,13 +7,15 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Weelo.Abstrations.Repositories;
-using Weelo.Abstrations.Types.Properties;
 using Weelo.Business.Commands.Property;
 using Weelo.Common.Generics;
 using Weelo.Common.Types.Properties;
 
 namespace Weelo.Business.Proccesors.Properties
 {
+    /// <summary>
+    /// Business logic for the property creation process.
+    /// </summary>
     public class PropertyProccesor : IRequestHandler<PropertyCommand, PropertyResponse>
     {
         #region INSTANTIATE
@@ -51,8 +53,10 @@ namespace Weelo.Business.Proccesors.Properties
                     _logger.LogWarning(detail);
                     return _propertyResponse;
                 }
+                //If the internal code is sent, the property update process is carried out.
                 if (!string.IsNullOrEmpty(request.CodeInternalOrigin))
                 {
+                    //Property Update
                     Guid property = _propertyRepository.Update(_mapper.Map<Property>(request), request.CodeInternalOrigin);
                     if (!string.IsNullOrEmpty(property.ToString()))
                     {
@@ -83,6 +87,7 @@ namespace Weelo.Business.Proccesors.Properties
                         return _propertyResponse;
                     }
                 }
+                //Property creation.
                 if (!(new PropertyValidatorCreate()).Validate(request).IsValid)
                 {
                     _propertyResponse.InnerContext = Resource.ErrorResponse(new()

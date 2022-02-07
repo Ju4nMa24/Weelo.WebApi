@@ -124,6 +124,7 @@ namespace Weelo.WebApi
                 };
             });
             #endregion
+            //Cors Policy Implementation.
             services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
             {
                 builder.AllowAnyMethod()
@@ -131,12 +132,14 @@ namespace Weelo.WebApi
                        .AllowCredentials()
                        .WithOrigins(_configuration["Security:CorsPolicy:AllowedOrigins"].Split(","));
             }));
+            //HSTS Implementation.
             services.AddHsts(options =>
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(365);
                 options.ExcludedHosts.Add("example.com");
+                options.ExcludedHosts.Add("google.com");
                 options.ExcludedHosts.Add("www.example.com");
             });
             if (!_env.IsDevelopment())
@@ -166,6 +169,7 @@ namespace Weelo.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Exception Handler implementation.
             app.UseExceptionHandler(errorApp =>
             {
                 errorApp.Run(async context =>
@@ -176,6 +180,7 @@ namespace Weelo.WebApi
                     await context.Response.WriteAsync("{\"codigo\": -1, \"respuesta\" : \"Internal Error\"}");
                 });
             });
+            //CSP Implementation.
             app.Use(async (context, next) =>
             {
                 context.Response.Headers.Add("X-Content-Type-Options", "nosniff");

@@ -12,6 +12,9 @@ using Weelo.Common.Types.Owners;
 
 namespace Weelo.Business.Proccesors.Owners
 {
+    /// <summary>
+    /// Business logic for the owner process.
+    /// </summary>
     public class OwnerProccesor : IRequestHandler<OwnerCommand, OwnerResponse>
     {
         #region INSTANTIATE
@@ -47,6 +50,7 @@ namespace Weelo.Business.Proccesors.Owners
                     _logger.LogWarning(detail);
                     return _ownerResponse;
                 }
+                //It is queried if the user currently exists in the database if the registration is not carried out.
                 if (!_ownerRepository.GetOne(request.IdentificationNumber))
                 {
                     bool response = await _ownerRepository.Create(_mapper.Map<Owner>(request));

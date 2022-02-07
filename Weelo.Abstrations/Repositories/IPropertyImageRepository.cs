@@ -2,6 +2,9 @@
 
 namespace Weelo.Abstrations.Repositories
 {
+    /// <summary>
+    /// Property Image repository (contains the definition of the actions to perform).
+    /// </summary>
     public interface IPropertyImageRepository
     {
         /// <summary>

@@ -14,11 +14,19 @@ using Weelo.Common.Generics;
 
 namespace Weelo.Repository.SqlServer.Services
 {
+    /// <summary>
+    /// Authentication repository (contains the definition of the actions to perform).
+    /// </summary>
+
     public class AuthenticationRepository : IAuthenticationRepository
     {
         private IConfiguration _configuration { get; }
-
         public AuthenticationRepository(IConfiguration configuration) => _configuration = configuration;
+        /// <summary>
+        /// JWT Create
+        /// </summary>
+        /// <param name="auth"></param>
+        /// <returns></returns>
         public Task<string> Generate(IAuth auth)
         {
             try
@@ -48,6 +56,11 @@ namespace Weelo.Repository.SqlServer.Services
                 return Task.Run(() => Constants.DefaultMessage);
             }
         }
+        /// <summary>
+        /// Method created for encryption and key generation.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private string GenerateKey(string request)
         {
             RSA rsa = RSA.Create();

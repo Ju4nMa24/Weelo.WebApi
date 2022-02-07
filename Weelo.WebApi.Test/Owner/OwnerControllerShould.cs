@@ -10,9 +10,16 @@ using Xunit;
 
 namespace Weelo.WebApi.Test.Owner
 {
+    /// <summary>
+    /// Unit tests for proprietary APIs.
+    /// </summary>
     public class OwnerControllerShould
     {
-
+        /// <summary>
+        /// Unit tests of find owner.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task FindOwner(Mock<IMediator> mock)
@@ -30,7 +37,11 @@ namespace Weelo.WebApi.Test.Owner
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
-
+        /// <summary>
+        /// Unit tests of register owner.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task OwnerRegister(Mock<IMediator> mock)

@@ -15,6 +15,9 @@ using Weelo.Common.Types.Owners;
 
 namespace Weelo.Business.Proccesors.Authentication
 {
+    /// <summary>
+    /// Business logic for the authentication process.
+    /// </summary>
     public class AuthenticationProccesor : IRequestHandler<AuthenticationCommand, AuthenticationResponse>
     {
         #region INSTANTIATE
@@ -51,6 +54,7 @@ namespace Weelo.Business.Proccesors.Authentication
                     _logger.LogWarning(detail);
                     return _authenticationResponse;
                 }
+                //It is queried if the user currently exists in the database.
                 IOwner owner = await _ownerRepository.Find(request.IdentificationNumber);
                 if (owner is null && Convert.ToDateTime(owner.Birthday) != Convert.ToDateTime(request.BirthDay))
                 {
@@ -65,6 +69,7 @@ namespace Weelo.Business.Proccesors.Authentication
                     _logger.LogWarning(detail);
                     return _authenticationResponse;
                 }
+                //The jwt is generated.
                 string token = await Task.Run(() => _authenticationRepository.Generate(_mapper.Map<Auth>(request)).Result);
                 if (!string.IsNullOrEmpty(token))
                 {

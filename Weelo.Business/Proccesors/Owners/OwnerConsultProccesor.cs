@@ -11,6 +11,9 @@ using Weelo.Common.Generics;
 
 namespace Weelo.Business.Proccesors.Owners
 {
+    /// <summary>
+    /// Business logic for the consult owner process.
+    /// </summary>
     public class OwnerConsultProccesor : IRequestHandler<OwnerConsultCommand, OwnerConsultResponse>
     {
         #region INSTANTIATE
@@ -47,6 +50,7 @@ namespace Weelo.Business.Proccesors.Owners
                     _logger.LogWarning(detail);
                     return _ownerResponse;
                 }
+                //It is queried if the user currently exists in the database.
                 dynamic response = await _ownerRepository.Find(request.IdentificationNumber);
                 if (response is null)
                 {

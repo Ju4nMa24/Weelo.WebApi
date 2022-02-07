@@ -3,6 +3,9 @@ using Weelo.Abstrations.Types.Properties;
 
 namespace Weelo.Abstrations.Repositories
 {
+    /// <summary>
+    /// Property repository (contains the definition of the actions to perform).
+    /// </summary>
     public interface IPropertyTraceRepository
     {
         /// <summary>

@@ -14,6 +14,9 @@ using Weelo.Common.Types.Properties;
 
 namespace Weelo.Business.Proccesors.Properties
 {
+    /// <summary>
+    /// Business logic for the property price process.
+    /// </summary>
     public class PropertyPriceProccesor : IRequestHandler<PricePropertyCommand, PricePropertyResponse>
     {
         #region INSTANTIATE
@@ -50,6 +53,7 @@ namespace Weelo.Business.Proccesors.Properties
                     _logger.LogWarning(detail);
                     return _propertyResponse;
                 }
+                //Price update
                 IProperty property = await _propertyRepository.PriceUpdate(request.Price,request.CodeInternal);
                 if (property is not null)
                 {

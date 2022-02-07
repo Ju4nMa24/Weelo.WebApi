@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Weelo.Abstrations\Weelo.Abstrations.csproj" />
     <ProjectReference Include="..\Weelo.Common\Weelo.Common.csproj" />
   </ItemGroup>

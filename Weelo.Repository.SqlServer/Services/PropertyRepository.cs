@@ -10,12 +10,18 @@ using Weelo.Repository.SqlServer.DataContext;
 
 namespace Weelo.Repository.SqlServer.Services
 {
+    /// <summary>
+    /// Property repository (contains the definition of the actions to perform).
+    /// </summary>
     public class PropertyRepository : IPropertyRepository
     {
         private readonly WeeloContext _weeloContext;
 
         public PropertyRepository(WeeloContext weeloContext) => _weeloContext = weeloContext;
-
+        /// <summary>
+        /// It's implemented for the creation of the property.
+        /// </summary>
+        /// <param name="property"></param>
         public async Task<string> Create(IProperty property)
         {
             try
@@ -29,9 +35,12 @@ namespace Weelo.Repository.SqlServer.Services
                 return string.Empty;
             }
         }
-
-        public async Task<Guid> Find(string codeInternal) => await Task.Run(() =>_weeloContext.Properties.Where(p => p.CodeInternal == codeInternal).FirstOrDefault().IdProperty);
-
+        public async Task<string> Find(string codeInternal) => await Task.Run(() =>_weeloContext.Properties.Where(p => p.CodeInternal == codeInternal).FirstOrDefault().IdProperty.ToString());
+        /// <summary>
+        /// It's implemented for the to list of the property.
+        /// </summary>
+        /// <param name="specification"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<IProperty>> GetAll(IProperty property) =>
             await Task.Run(() => _weeloContext.Properties.OrderByDescending(
                 p => p.Name.Contains(property.Name) ||
@@ -39,7 +48,12 @@ namespace Weelo.Repository.SqlServer.Services
                 p.CodeInternal.ToString().Contains(property.CodeInternal.ToString()) ||
                 p.Price.ToString().Contains(property.Price.ToString())
                 ));
-
+        /// <summary>
+        /// It's implemented for the update of the price.
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="codeInternal"></param>
+        /// <returns></returns>
         public async Task<IProperty> PriceUpdate(string price, string codeInternal)
         {
             Common.Types.Properties.Property property = _weeloContext.Properties.Where(p => p.CodeInternal == codeInternal).FirstOrDefault();
@@ -47,7 +61,10 @@ namespace Weelo.Repository.SqlServer.Services
             _weeloContext.SaveChanges();
             return await Task.Run(() => _weeloContext.Properties.Where(p => p.CodeInternal == codeInternal).FirstOrDefault());
         }
-
+        /// <summary>
+        /// It's implemented for the purchase.
+        /// </summary>
+        /// <param name="property"></param>
         public async Task<bool> PurchaseRecord(IPropertyTrace propertyTrace, string codeInternal)
         {
             try
@@ -62,7 +79,10 @@ namespace Weelo.Repository.SqlServer.Services
                 return false;
             }
         }
-
+        /// <summary>
+        /// It's implemented for the update of the property.
+        /// </summary>
+        /// <param name="property"></param>
         public Guid Update(IProperty property, string codeInternalOrigin)
         {
             Common.Types.Properties.Property propertyChange = _weeloContext.Properties.Where(p => p.CodeInternal == codeInternalOrigin).FirstOrDefault();

@@ -8,6 +8,9 @@ using Weelo.Business.Commands.Owner;
 
 namespace Weelo.WebApi.Controllers
 {
+    /// <summary>
+    /// This controller contains the definition of the methods associated with the owners.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -16,7 +19,11 @@ namespace Weelo.WebApi.Controllers
         private readonly IMediator _mediator;
 
         public OwnerController(IMediator mediator) => _mediator = mediator;
-
+        /// <summary>
+        /// Exposed method for querying owners.
+        /// </summary>
+        /// <param name="identificationNumber"></param>
+        /// <returns></returns>
         // GET api/<PropertiesController>/5
         [HttpGet("{identificationNumber}")]
         public async Task<IActionResult> FindOwner(string identificationNumber)
@@ -24,6 +31,11 @@ namespace Weelo.WebApi.Controllers
             OwnerConsultResponse response = await _mediator.Send(new OwnerConsultCommand() { IdentificationNumber = identificationNumber});
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        /// Exposed method for creating owners.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPost("OwnerRegister")]
         public async Task<IActionResult> OwnerRegister([FromBody]OwnerCommand owner)

@@ -9,6 +9,9 @@ using Weelo.Business.Commands.Property;
 
 namespace Weelo.WebApi.Controllers
 {
+    /// <summary>
+    /// This controller contains the definition of the methods associated with the properties.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -17,12 +20,22 @@ namespace Weelo.WebApi.Controllers
         private readonly IMediator _mediator;
         public PropertiesController(IMediator mediator) => _mediator = mediator;
         // POST api/<PropertiesController>
+        /// <summary>
+        /// Exposed method to get the properties
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
         [HttpPost("GetAllProperties")]
         public async Task<IActionResult> GetAllProperties([FromBody]PropertyFiltersCommand property)
         {
             PropertyFiltersResponse response = await _mediator.Send(property);
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        /// Exposed method for creating the properties.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPost("PropertyRegister")]
         public async Task<IActionResult> PropertyRegister([FromBody]PropertyCommand property)
@@ -30,6 +43,11 @@ namespace Weelo.WebApi.Controllers
             PropertyResponse response = await _mediator.Send(property);
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        ///  Exposed method for the creation of the purchase of the properties.   
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPost("PurchaseRecord")]
         public async Task<IActionResult> PurchaseRecord([FromBody]PropertyPurchaseCommand property)
@@ -37,6 +55,11 @@ namespace Weelo.WebApi.Controllers
             PropertyPurchaseResponse response = await _mediator.Send(property);
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        /// Exposed method to add the images of the properties.
+        /// </summary>
+        /// <param name="propertyAddImage"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPost("AddImage")]
         public async Task<IActionResult> AddImage([FromBody]PropertyAddImageCommand propertyAddImage)
@@ -44,6 +67,12 @@ namespace Weelo.WebApi.Controllers
             PropertyAddImageResponse response = await _mediator.Send(propertyAddImage);
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        /// Exposed method for updating prices.
+        /// </summary>
+        /// <param name="codeInternal"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPut("PriceUpdate/{codeInternal}")]
         public async Task<IActionResult> PriceUpdate(string codeInternal, string price)
@@ -55,6 +84,12 @@ namespace Weelo.WebApi.Controllers
             });
             return response.InnerContext.Result.Success ? Ok(response) : BadRequest(response.InnerContext.Result);
         }
+        /// <summary>
+        /// Exposed method for updating properties.
+        /// </summary>
+        /// <param name="codeInternal"></param>
+        /// <param name="property"></param>
+        /// <returns></returns>
         // POST api/<PropertiesController>
         [HttpPut("Update/{codeInternal}")]
         public async Task<IActionResult> Update(string codeInternal, [FromBody]PropertyCommand property)

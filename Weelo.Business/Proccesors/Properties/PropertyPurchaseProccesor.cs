@@ -13,6 +13,9 @@ using Weelo.Common.Types.Properties;
 
 namespace Weelo.Business.Proccesors.Properties
 {
+    /// <summary>
+    /// Business logic for the property purcharse process.
+    /// </summary>
     public class PropertyPurchaseProccesor : IRequestHandler<PropertyPurchaseCommand, PropertyPurchaseResponse>
     {
         #region INSTANTIATE
@@ -21,7 +24,6 @@ namespace Weelo.Business.Proccesors.Properties
         private readonly ILogger<PropertyPurchaseProccesor> _logger;
         private readonly IMapper _mapper;
         #endregion
-
         public PropertyPurchaseProccesor(IPropertyRepository propertyRepository, ILogger<PropertyPurchaseProccesor> logger, IMapper mapper, IOwnerRepository ownerRepository)
         {
             _propertyResponse = new();
@@ -48,6 +50,7 @@ namespace Weelo.Business.Proccesors.Properties
                     _logger.LogWarning(detail);
                     return _propertyResponse;
                 }
+                //If the purchase returns a true, a response is given for good.
                 if (await _propertyRepository.PurchaseRecord(_mapper.Map<PropertyTrace>(request), request.CodeInternal))
                 {
                     _propertyResponse.InnerContext.Result.Success = true;

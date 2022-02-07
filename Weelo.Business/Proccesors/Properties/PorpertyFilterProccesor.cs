@@ -16,6 +16,9 @@ using Weelo.Common.Types.Properties;
 
 namespace Weelo.Business.Proccesors.Properties
 {
+    /// <summary>
+    /// Business logic for the property filters process.
+    /// </summary>
     public class PorpertyFilterProccesor : IRequestHandler<PropertyFiltersCommand, PropertyFiltersResponse>
     {
         #region INSTANTIATE
@@ -37,6 +40,7 @@ namespace Weelo.Business.Proccesors.Properties
             _propertyResponse.InnerContext.Result.Success = false;
             try
             {
+                //Registered properties are queried.
                 IEnumerable<IProperty> properties = await _propertyRepository.GetAll(_mapper.Map<Property>(request));
                 if (properties.Count() > 0)
                 {

@@ -10,6 +10,9 @@ namespace Weelo.WebApi.Mappers
 {
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Entity Association Mapping.
+        /// </summary>
         public MappingProfile()
         {
             //Property entities.

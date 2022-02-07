@@ -13,6 +13,9 @@ using Weelo.Common.Types.Properties;
 
 namespace Weelo.Business.Proccesors.Properties
 {
+    /// <summary>
+    /// Business logic for the property image process.
+    /// </summary>
     public class PropertyAddImageProccesor : IRequestHandler<PropertyAddImageCommand, PropertyAddImageResponse>
     {
         #region INSTANTIATE
@@ -49,7 +52,22 @@ namespace Weelo.Business.Proccesors.Properties
                     _logger.LogWarning(detail);
                     return _propertyAddImageResponse;
                 }
-                Guid idProperty = await _propertyRepository.Find(request.CodeInternal);
+                //The submitted property is searched.
+                string idProperty = await _propertyRepository.Find(request.CodeInternal);
+                if (string.IsNullOrEmpty(idProperty))
+                {
+                    _propertyAddImageResponse.InnerContext = Resource.ErrorResponse(new()
+                    {
+                        Header = Constants.HeaderErrorMessage,
+                        Parameter = Constants.Code01,
+                        ResponseType = _propertyAddImageResponse
+                    }).InnerContext;
+                    _propertyAddImageResponse.StatusCode = HttpStatusCode.BadRequest.ToString();
+                    string detail = JsonConvert.SerializeObject(_propertyAddImageResponse.InnerContext);
+                    _logger.LogWarning(detail);
+                    return _propertyAddImageResponse;
+                }
+                //Images are added.
                 Parallel.ForEach(request.Files, file =>
                 {
                     _propertyImageRepository.Create(new PropertyImage()
@@ -57,10 +75,10 @@ namespace Weelo.Business.Proccesors.Properties
                         Enabled = file.Enabled,
                         File = file.FileUrl,
                         IdPropertyImage = Guid.NewGuid(),
-                        IdProperty = idProperty
+                        IdProperty = Guid.Parse(idProperty)
                     });
                 });
-                if (!string.IsNullOrEmpty(idProperty.ToString()))
+                if (!string.IsNullOrEmpty(idProperty))
                 {
                     _propertyAddImageResponse.InnerContext.Result.Success = true;
                     _propertyAddImageResponse.InnerContext = Resource.SuccessMessage(new()

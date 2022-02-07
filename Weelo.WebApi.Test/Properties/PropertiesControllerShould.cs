@@ -12,8 +12,16 @@ using Xunit;
 
 namespace Weelo.WebApi.Test.Properties
 {
+    /// <summary>
+    /// Unit tests for the properties api.
+    /// </summary>
     public class PropertiesControllerShould
     {
+        /// <summary>
+        /// Unit tests of get all properties.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task GetAllProperties(Mock<IMediator> mock)
@@ -31,6 +39,11 @@ namespace Weelo.WebApi.Test.Properties
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
+        /// <summary>
+        /// Unit tests of property register.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task PropertyRegister(Mock<IMediator> mock)
@@ -57,6 +70,11 @@ namespace Weelo.WebApi.Test.Properties
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
+        /// <summary>
+        /// Unit tests of purchase record.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task PurchaseRecord(Mock<IMediator> mock)
@@ -81,6 +99,11 @@ namespace Weelo.WebApi.Test.Properties
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
+        /// <summary>
+        /// Unit tests of add image.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [AutoData]
         public async Task AddImage(Mock<IMediator> mock)
@@ -102,6 +125,11 @@ namespace Weelo.WebApi.Test.Properties
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
+        /// <summary>
+        /// Unit tests of price update.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [InlineAutoData]
         public async Task PriceUpdate(Mock<IMediator> mock)
@@ -120,6 +148,11 @@ namespace Weelo.WebApi.Test.Properties
             Assert.Equal(expected, ((ObjectResult)result).Value);
             #endregion
         }
+        /// <summary>
+        /// Unit tests of update.
+        /// </summary>
+        /// <param name="mock"></param>
+        /// <returns></returns>
         [Theory]
         [InlineAutoData]
         public async Task Update(Mock<IMediator> mock)

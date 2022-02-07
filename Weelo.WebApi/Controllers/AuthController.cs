@@ -8,13 +8,20 @@ using Weelo.Business.Commands.Authentication;
 
 namespace Weelo.WebApi.Controllers
 {
+    /// <summary>
+    /// This controller is oriented for the creation of the jwt.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
         public AuthController(IMediator mediator) => _mediator = mediator;
-
+        /// <summary>
+        /// Exposed method for creating of the jwt.
+        /// </summary>
+        /// <param name="authentication"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("GenerateJwt")]
         public async Task<IActionResult> GenerateJwt([FromBody]AuthenticationCommand authentication)

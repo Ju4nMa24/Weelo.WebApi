@@ -2,6 +2,9 @@
 
 namespace Weelo.Common.Generics
 {
+    /// <summary>
+    /// class with regular expressions.
+    /// </summary>
     public static class RegularExpressions
     {
         public readonly static Regex RegexWithSymbol = new Regex(Constants.RegexWithSymbols);
