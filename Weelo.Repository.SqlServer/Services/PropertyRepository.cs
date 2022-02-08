@@ -41,13 +41,27 @@ namespace Weelo.Repository.SqlServer.Services
         /// </summary>
         /// <param name="specification"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<IProperty>> GetAll(IProperty property) =>
-            await Task.Run(() => _weeloContext.Properties.OrderByDescending(
-                p => p.Name.Contains(property.Name) ||
-                p.Address.Contains(property.Address) ||
-                p.CodeInternal.ToString().Contains(property.CodeInternal.ToString()) ||
-                p.Price.ToString().Contains(property.Price.ToString())
-                ));
+        public async Task<IEnumerable<IProperty>> GetAll(IProperty property)
+        {
+            if (property.Price > 0)
+            {
+                return await Task.Run(() => _weeloContext.Properties.Where(
+                                        p => p.Name.Contains(property.Name) &&
+                                        p.Address.Contains(property.Address) &&
+                                        p.CodeInternal.Contains(property.CodeInternal) &&
+                                        p.Price.ToString().Contains(property.Price.ToString())
+                                        ).OrderByDescending(p => p.CreationDate).ToList());
+            }
+            else
+            {
+                 return await Task.Run(() => _weeloContext.Properties.Where(
+                p => p.Name.Contains(property.Name) &&
+                p.Address.Contains(property.Address) &&
+                p.CodeInternal.Contains(property.CodeInternal)
+                ).OrderByDescending(p => p.CreationDate).ToList());
+            }
+        }
+
         /// <summary>
         /// It's implemented for the update of the price.
         /// </summary>

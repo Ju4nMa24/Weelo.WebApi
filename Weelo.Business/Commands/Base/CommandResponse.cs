@@ -21,5 +21,7 @@ namespace Weelo.Business.Commands.Base
         public string ReasonCode { get; set; }
         [JsonPropertyName("ReasonPhrase")]
         public string ReasonPhrase { get; set; }
+        [JsonPropertyName("Details")]
+        public dynamic Details { get; set; }
     }
 }
