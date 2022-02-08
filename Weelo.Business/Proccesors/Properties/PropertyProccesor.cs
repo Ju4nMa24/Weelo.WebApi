@@ -42,12 +42,14 @@ namespace Weelo.Business.Proccesors.Properties
                 //Validation of input parameters.
                 if (!(new PropertyValidator()).Validate(request).IsValid)
                 {
+
                     _propertyResponse.InnerContext = Resource.ErrorResponse(new()
                     {
                         Header = Constants.HeaderErrorMessage,
                         Parameter = Constants.Code01,
                         ResponseType = _propertyResponse
                     }).InnerContext;
+                    _propertyResponse.InnerContext.Result.Details = (new PropertyValidator()).Validate(request).Errors.ToArray();
                     _propertyResponse.StatusCode = HttpStatusCode.BadRequest.ToString();
                     string detail = JsonConvert.SerializeObject(_propertyResponse.InnerContext);
                     _logger.LogWarning(detail);

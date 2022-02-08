@@ -45,10 +45,9 @@ namespace Weelo.Business.Commands.Property
         public PropertyValidator()
         {
             RuleFor(request => request.Name)
-                    .NotNull().NotEmpty().WithMessage("El nombre del propietario es requerido.")
+                    .NotNull().NotEmpty().WithMessage("El nombre de la propiedad es requerido.")
                     .MaximumLength(50).WithMessage("La longitud del nombre es invalida.")
-                    .MinimumLength(2).WithMessage("La longitud del nombre es invalida.")
-                    .Must(Validation.ValidateRegexWithRegexPersonNameAndNull).WithMessage("El nombre del propietario no es valido.");
+                    .MinimumLength(2).WithMessage("La longitud del nombre es invalida.");
             RuleFor(request => request.Address)
                     .NotNull().NotEmpty().WithMessage("La dirección es requerida.")
                     .MinimumLength(5).WithMessage("La Dirección es invalida.");
