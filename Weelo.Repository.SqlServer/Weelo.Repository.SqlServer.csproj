@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Weelo.Common\Weelo.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

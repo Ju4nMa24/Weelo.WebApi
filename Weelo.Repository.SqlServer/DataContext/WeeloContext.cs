@@ -57,6 +57,18 @@ namespace Weelo.Repository.SqlServer.DataContext
             modelBuilder.Entity<PropertyTrace>().Property(p => p.Value).IsRequired();
             modelBuilder.Entity<PropertyTrace>().Property(p => p.Tax).HasMaxLength(15).IsRequired();
             modelBuilder.Entity<PropertyTrace>().Property(p => p.Tax).IsRequired();
+            //Default Owner
+            modelBuilder.Entity<Owner>().HasData(
+                new Owner()
+                {
+                    IdOwner = Guid.NewGuid(),
+                    Address = "Calle 120 No. 30-19",
+                    Birthday = "07-02-2022",
+                    IdentificationNumber = "123456789",
+                    Name = "Weelo",
+                    Photo = string.Empty,
+                    CreationDate = DateTime.UtcNow
+                });
         }
     }
 }
