@@ -20,7 +20,7 @@ _NOTA:_
 Se debe eliminar el contenido de la carpeta **Migrations** en la biblioteca de clases **Weelo.Repository.SqlServer** para su correcto funcionamiento.
 
 
-1. **Ejecución de los apis:** Para la ejecución de cada una de las acciones expuestas en los apis, inicialmente se debe consumir el servicio de Authentication (para la generación del JWT) _({{host}}/api/Auth/GenerateJwt)_, dicho api recibe el siguiente request:
+2. **Ejecución de los apis:** Para la ejecución de cada una de las acciones expuestas en los apis, inicialmente se debe consumir el servicio de Authentication (para la generación del JWT) _({{host}}/api/Auth/GenerateJwt)_, dicho api recibe el siguiente request:
 
 ~~~JSON
 REQUEST DE EJEMPLO
