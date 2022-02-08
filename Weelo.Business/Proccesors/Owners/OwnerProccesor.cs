@@ -45,6 +45,7 @@ namespace Weelo.Business.Proccesors.Owners
                         Parameter = Constants.Code01,
                         ResponseType = _ownerResponse
                     }).InnerContext;
+                    _ownerResponse.InnerContext.Result.Details = (new OwnerValidator()).Validate(request).Errors.ToArray();
                     _ownerResponse.StatusCode = HttpStatusCode.BadRequest.ToString();
                     string detail = JsonConvert.SerializeObject(_ownerResponse.InnerContext);
                     _logger.LogWarning(detail);

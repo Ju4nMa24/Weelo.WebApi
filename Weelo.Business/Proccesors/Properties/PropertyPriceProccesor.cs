@@ -48,6 +48,7 @@ namespace Weelo.Business.Proccesors.Properties
                         Parameter = Constants.Code01,
                         ResponseType = _propertyResponse
                     }).InnerContext;
+                    _propertyResponse.InnerContext.Result.Details = (new PricePropertyValidator()).Validate(request).Errors.ToArray();
                     _propertyResponse.StatusCode = HttpStatusCode.BadRequest.ToString();
                     detail = JsonConvert.SerializeObject(_propertyResponse.InnerContext);
                     _logger.LogWarning(detail);

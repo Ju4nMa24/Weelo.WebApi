@@ -47,6 +47,7 @@ namespace Weelo.Business.Proccesors.Properties
                         Parameter = Constants.Code01,
                         ResponseType = _propertyAddImageResponse
                     }).InnerContext;
+                    _propertyAddImageResponse.InnerContext.Result.Details = (new PropertyAddImageValidator()).Validate(request).Errors.ToArray();
                     _propertyAddImageResponse.StatusCode = HttpStatusCode.BadRequest.ToString();
                     string detail = JsonConvert.SerializeObject(_propertyAddImageResponse.InnerContext);
                     _logger.LogWarning(detail);
